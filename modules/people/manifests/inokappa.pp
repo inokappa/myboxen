@@ -108,4 +108,8 @@ class people::inokappa {
     ensure => link,
     target => "$dotfiles/vimrc",
   }
+  file { "$home/.zshrc":
+    ensure => link,
+    target => "$dotfiles/zshrc",
+  }
 }
