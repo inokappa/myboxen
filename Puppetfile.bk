@@ -55,18 +55,3 @@ github "xquartz",    "1.1.0"
 
 # Optional/custom modules. There are tons available at
 # https://github.com/boxen.
-
-# My custmize
-github "osx",            "2.2.2"
-github "virtualbox",     "1.0.10"
-github "vagrant",        "3.0.2"
-github "chrome",         "1.1.2"
-github "iterm2",         "1.0.6"
-github "sublime_text_2", "1.1.2"
-github "quicksilver",    "1.2.0"
-github "evernote",       "2.0.4"
-github "dropbox",        "1.2.0"
-github "skitch",         "1.0.2"
-github "thunderbird",    "1.1.0"
-github "cyberduck",      "1.0.1"
-github "sourcetree",     "1.0.0"
