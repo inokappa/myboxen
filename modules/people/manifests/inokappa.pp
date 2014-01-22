@@ -1,6 +1,4 @@
 class people::inokappa {
-  ## osx
-  # Finder
   include osx::finder::unhide_library
   class osx::finder::show_all_files {
     include osx::finder
@@ -15,7 +13,6 @@ class people::inokappa {
   include osx::finder::show_all_files
   include osx::finder::show_hard_drives_on_desktop
 
-  ## Dock
   include osx::dock::autohide
   class { 'osx::dock::position':
     position => 'right'
@@ -23,20 +20,15 @@ class people::inokappa {
   class { 'osx::dock::icon_size':
     size => '24'
   }
-
   class { 'osx::global::natural_mouse_scrolling':
     enabled => false
   }
 
-  # Universal Access
   include osx::universal_access::ctrl_mod_zoom
   include osx::universal_access::enable_scrollwheel_zoom
 
-  # Miscellaneous
   include osx::no_network_dsstores # disable creation of .DS_Store files on network shares
   include osx::software_update # download and install software updates
-
-  # include turn-off-dashboard
 
   include virtualbox
   include vagrant
@@ -53,6 +45,7 @@ class people::inokappa {
   include quicksilver
   include cyberduck
   include sourcetree
+  include ruby
 
   # via homebrew
   package {
@@ -66,8 +59,24 @@ class people::inokappa {
       'ec2-ami-tools',
       'python',
       'brew-pip',
-      'jq'
+      'jq',
+      'mysql55',
+      'brew-gem'
     ]:
+  }
+
+  ruby::gem { "chef for 2.0.0-p247":
+    gem     => 'chef',
+    ruby    => '2.0.0-p247'
+  }
+  ruby::gem { "knife-solo for 2.0.0-p247":
+    gem     => 'knife-solo',
+    ruby    => '2.0.0-p247'
+  }
+  ruby::gem { "capistrano for 2.0.0-p247":
+    gem     => 'capistrano',
+    version => '2.15.4',
+    ruby    => '2.0.0-p247'
   }
 
   # exec install awscli
@@ -102,7 +111,7 @@ class people::inokappa {
 
   file { "$home/.tmux.conf":
     ensure => link,
-    target => "$dotfiles/tmux.conf",
+    target => "$dotfiles/tmux.conf.mac",
   }
   file { "$home/.vimrc":
     ensure => link,
@@ -111,5 +120,20 @@ class people::inokappa {
   file { "$home/.zshrc":
     ensure => link,
     target => "$dotfiles/zshrc",
+  }
+
+  $tmuxutil = "${home}/.tmux-pbcopy"
+  $mybin    = "${home}/bin"
+  file { $mybin:
+    ensure  => directory
+  }
+  repository { $tmuxutil:
+    source  => 'inokappa/tmux-pbcopy',
+    require => File[$home]
+  }
+  file { "$mybin/tmux-pbcopy":
+    ensure => link,
+    target => "$tmuxutil/tmux-pbcopy",
+    require => File[$mybin]
   }
 }
