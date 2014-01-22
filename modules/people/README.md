@@ -1,5 +1,7 @@
 # Personal Manifests
 
+## Setting
+
 Per-user manifests live in `modules/people/manifests/$login.pp`, where
 `$login` is a GitHub login. A simple user manifest example:
 
@@ -25,6 +27,8 @@ class people::jbarnette {
 
 Note that if your GitHub username contains dashes, you should replace them by underscores in both the manifest name and the class name.
 
+***
+
 ## Projects
 
 While you _can_ include projects one by one, sometimes you might just want
@@ -33,4 +37,13 @@ You can do that easily with:
 
 ```
 include projects::all
+```
+***
+
+## How to use
+
+```
+which ruby
+rbenv global 2.0.0-p247
+cd /Users/kappa/our-boxen && ./script/boxen --no-fde 
 ```
